@@ -82,7 +82,7 @@ const Signin = () => {
     //     }
     // }
 
-    const RedirecUser = () => {
+    const RedirectUser = () => {
         if (redirectToReferrer) {
             if (user && user.role === 1) {
                 return <Redirect to="/admin/dashboard" />;
@@ -105,7 +105,7 @@ const Signin = () => {
            {showLoading()}
             {showError()}
             {signInForm()}
-            {RedirecUser()}
+            {RedirectUser()}
         </Layout>
     );
 
