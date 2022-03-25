@@ -1,6 +1,6 @@
 import React, { Fragment } from "react";
 import { Link, withRouter } from "react-router-dom";
-
+import { signout, isAuthenticated } from "../auth";
 //hàm active khi click vào menu thì nó sẽ đc active màu lên
 // lịch sử ghi lại đường dẫn
 const isActive = (history, path) => {
@@ -25,24 +25,60 @@ const Menu = ({ history }) => (
             </li>
 
             <li className="nav-item">
-                <Link
-                    className="nav-link"
-                    style={isActive(history, "/signin")}
-                    to="/signin"
-                >
-                    Signin
-                </Link>
-            </li>
-        
-            <li className="nav-item">
-                <Link
-                    className="nav-link"
-                    style={isActive(history, "/signup")}
-                    to="/signup"
-                >
-                    Signup
-                </Link>
-            </li>
+                    <Link
+                        className="nav-link"
+                        style={isActive(history, "/dashboard")}
+                        to="/user/dashboard"
+                    >
+                        Dashboard
+                    </Link>
+                </li>
+
+            {!isAuthenticated() && (
+                <Fragment>
+                    <li className="nav-item">
+                        <Link
+                            className="nav-link"
+                            style={isActive(history, "/signin")}
+                            to="/signin"
+                        >
+                            Signin
+                        </Link>
+                    </li>
+
+                    <li className="nav-item">
+                        <Link
+                            className="nav-link"
+                            style={isActive(history, "/signup")}
+                            to="/signup"
+                        >
+                            Signup
+                        </Link>
+                    </li>
+                </Fragment>
+            )}
+
+
+{/* đăng xuất - isauthenticated là kiểm tra đã có jwtt thì đăng kí đăng nhận sẽ ẩn đi chỉ hiện mỗi signout -- fragmemt thay cho thẻ div*/}
+            {isAuthenticated() && (
+                <li className="nav-item">
+                    <span
+                        className="nav-link"
+                        style={{ cursor: "pointer", color: "#ffffff" }}
+                        onClick={() =>
+                            signout(() => {
+                                history.push("/");
+                            })
+                        }
+                    >
+                        Signout
+                    </span>
+                </li>
+            )}
+
+
+
+
         </ul>
     </div>
 );

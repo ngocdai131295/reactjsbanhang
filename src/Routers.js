@@ -5,6 +5,9 @@ import Signin from './user/Signin';
 import Home from './core/Home';
 // import Menu from './core/Menu';
 
+import PrivateRoute from './auth/PrivateRoute';   //trang bảo mật route nếu ko đăng nhập  thì sẽ chuyển hướng
+import Dashboard from './user/UserDashboard'
+
 const Routes = () => {
     return (
         <BrowserRouter>
@@ -13,6 +16,10 @@ const Routes = () => {
                 <Route path="/" exact component={Home} />
                 <Route path="/signin" exact component={Signin} />
                 <Route path="/signup" exact component={Signup} />
+
+                {/* click vào dashboard chưa đăng nhập thì đc chuyển hướng đến đăng nhập */}
+                <PrivateRoute path="/user/dashboard" exact component={Dashboard}/>
+                {/* <AdminRoute path="/admin/dashboard" exact component={AdminDashboard} /> */}
             </Switch>
         </BrowserRouter>
     );
